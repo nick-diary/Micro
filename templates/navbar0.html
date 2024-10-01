@@ -1,0 +1,266 @@
+{% load static %}
+
+<!-- Boxicons CSS -->
+<link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
+<style>
+    .sidebar{
+        position: relative;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 250px;
+        padding: 10px 14px;
+        background: #0078D7;
+        box-shadow: 3px 0px 5px rgba(82, 81, 81,0.8);
+        transition: all 0.3s;
+    }
+    .sidebar.closed{
+        margin-left: -230px;
+    }
+    .sidebar header{
+        position: relative;
+    }
+    .sidebar header .image-text{
+        display: flex;
+        align-items: center;
+        color: wheat;
+    }
+    .sidebar header .text{
+        font-size: 25px;
+        font-weight: 800;
+    }
+    .sidebar .image{
+        min-width: 55px;
+        display: flex;
+        align-items: center;
+        font-size: 25px;
+    }
+    .header-text .name{
+        font-weight: 600;
+    }
+
+    .sidebar header .toogle{
+        position: absolute;
+        top:-15%;
+        padding-bottom: 2px;
+        padding-left: 2px;
+        right: -50px;
+        height: 25px;
+        width: 25px;
+        display: flex;
+        align-items: center;
+        color: #0078D7;
+        font-size: 22px;
+        font-weight: bolder;
+        cursor: pointer;
+    }
+    .menu-bar{
+        position: absolute;
+        top: 50px;
+        left: -45px;
+    }
+    .sidebar li{
+        height: 50px;
+        /* background: red; */
+        margin-top: 10px;
+        list-style: none;
+        display: flex;
+        align-items: center;
+        width: 229px;
+    }
+    .sidebar li .icon{
+        min-width: 50px;
+        font-size: 20px;
+        justify-content: center;
+    }
+    .sidebar li .icon,
+    .sidebar li .text{
+        color: white;
+        transition: all 0.3s;
+    }
+    .sidebar li a{
+        height: 100%;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        text-decoration: none;
+        padding-left: 10px;
+        transition: all 0.4s;
+    }
+    .sidebar li.active a{
+        text-decoration: none;
+        background: rgba(245, 222, 179, 0.5)D7;
+    }
+    .sidebar li a.act .icon,
+    .sidebar li a.act .text{
+        color: #0078D7;
+    }
+    .sidebar li a:hover{
+        text-decoration: none;
+        background: wheat;
+    }
+    .sidebar li a:hover .icon,
+    .sidebar li a:hover .text{
+        color: #0078D7;
+    }
+    .sidebar .off a:hover {
+        background: #e60550;
+    }
+    .sidebar .off a:hover .icon,
+    .sidebar .off a:hover .text{
+        color: wheat;
+    }
+    .sidebar .menu-bar{
+        height: calc(100% - 50px);
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+    .content-wrapper{
+        filter: blur(5px);
+    }
+    @media(max-width: 767px){
+        .sidebar{
+            position: absolute;
+            z-index: 10;
+            backdrop-filter: blur(15px);
+        }
+    }
+
+/* 
+    @media(max-width: 767px){
+        .sidebar{
+            margin-left: -250px;
+            position: absolute;
+            min-height: 100vh;
+        }
+    } */
+    /* #check{
+        visibility: hidden;
+        display: none;
+    }
+    #check:checked ~ .sidebar{
+        transform: translateX(0);
+    }
+    #check:checked ~ .sidebar #bars{
+        display: none;
+    } */
+</style>
+
+<!-- <input type="checkbox" name="" id="chek"> -->
+<nav class="sidebar closed">
+    <header>
+        <div class="image-text">
+            <span class="image">
+                <i class="fas fa-bank"></i>
+            </span>
+            <div class="text header-text">
+                <span class="name">Microfinance</span>
+            </div>
+        </div>
+        <!-- <i class="fa-solid fa-times toogle" id="times"></i> -->
+        <i class="fa-solid fa-bars toogle" id="bars"></i>
+    </header>
+    <!-- <hr class="sidebar-divider my-0" style="border: solid 1px wheat; width: 150px; left: 50px;"> -->
+    <div class="menu-bar">
+        <div class="menu">
+            <ul class="menu-links">
+                <li class="nav-link {{ active_caisse }}">
+                    <a href="{% url 'caisse' %}">
+                        <!-- <i class='bx bxs-wallet icon'></i> -->
+                         </i><i class="fas fa-sack-dollar icon"></i>
+                        <span class="text nav-text">Caisse</span>
+                    </a>
+                </li>
+                <li class="nav-link {{ active_cotisation }}">
+                    <a href="{% url 'cotisation' %}">
+                        <!-- <i class='bx bxs-wallet icon'></i> -->
+                         </i><i class="fas fa-cash-register icon"></i>
+                        <span class="text nav-text">Cotisation</span>
+                    </a>
+                </li>
+                <li class="nav-link {{ active_membre }}">
+                    <a href="{% url 'membre' %}">
+                        <!-- <i class='bx bx-money icon'></i> -->
+                         </i><i class="fas fa-users icon"></i>
+                        <span class="text nav-text">Membres</span>
+                    </a>
+                </li>
+                <li class="nav-link {{ active_pret }}">
+                    <a href="{% url 'pret' %}">
+                        <!-- <i class='bx bx-group icon'></i> -->
+                         </i><i class="fas fa-hand-holding-dollar icon"></i>
+                        <span class="text nav-text">Prêt</span>
+                    </a>
+                </li>
+                <li class="nav-link {{ active_reunion }}">
+                    <a href="{% url 'reunion' %}">
+                        <!-- <i class='bx bx- icon'> -->
+                        </i><i class="fas fa-handshake icon"></i>
+                        <span class="text nav-text">Réunion</span>
+                    </a>
+                </li>
+                <li class="nav-link off">
+                    <a href="" id="deconnexionLink">
+                        <!-- <i class='bx bxs-wallet icon'></i> -->
+                         </i><i class="fas fa-power-off icon"></i>
+                        <span class="text nav-text">Déconnexion</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<script type="text/javascript" >
+    const sidebar = document.querySelector(".sidebar"),
+          toogled = document.querySelector(".toogle"),
+          content = document.querySelector(".content-wrapper");
+    
+    toogled.addEventListener("click", () => {
+        sidebar.classList.toggle("closed");
+        if (toogled.classList.contains('fa-bars')) {
+                toogled.classList.replace("fa-bars","fa-times");
+            } else {
+                toogled.classList.replace("fa-times","fa-bars");
+            }
+        if (sidebar.style.backdropFilter == "blur(0px)") {
+            sidebar.style.backdropFilter = "blur(15px)"
+        } else {
+            sidebar.style.backdropFilter = "blur(0px)"
+        }
+    })
+
+    const menuItems = document.querySelectorAll('.sidebar li');
+
+    // Add click event listeners to each menu item
+    menuItems.forEach((item) => {
+        item.addEventListener('click', function() {
+            // Remove 'active' class from all menu items
+            menuItems.forEach((menuItem) => menuItem.classList.remove('active'));
+        
+            this.classList.add('active');
+        });
+    });
+
+        // Add SweetAlert confirmation for deconnexion
+        deconnexionLink.addEventListener('click', function(e) {
+        e.preventDefault();
+        Swal.fire({
+            title: 'Êtes-vous sûr de vouloir vous déconnecter ?',
+            text: "Vous devrez vous reconnecter pour accéder à l'application.",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            cancelButtonText: 'Annuler',
+            confirmButtonText: 'Oui, me déconnecter',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = "{% url 'deconnexion' %}";
+            }
+        });
+    });
+
+</script>

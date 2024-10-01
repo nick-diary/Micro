@@ -1,0 +1,121 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Nouveau versement</title>
+    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'fontawesome/css/all.css' %}">
+    <!-- <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> -->
+</head>
+<body id="wrapper">
+    <div id="content-wrapper">
+        
+        
+        <div class="d-flex justify-content-center align-content-center bg-light">
+            <div class="card shadow rounded-0 border-0 px-5 py-3">
+                <!-- Bouton de retour -->
+                <a href="{% url 'cotisation' %}" class="btn btn-link position-fixed" style="top: 10px; left: 50px; z-index: 1031;">
+                    <i class="fas fa-arrow-left fa-2x"></i>
+                </a>
+                <div class="card-header border-0 text-center">
+                    <h1>Nouveau versement</h1>
+                </div>
+                <div class="card-body">
+                    <div class="px-5">
+                        {% include 'message.html' %}
+                        <form id="versementForm" method="post">
+                            {% csrf_token %}
+                            <div class="row mt-3">
+                                <label for="membre_id">Nom Membre</label>
+                                <select name="membre_id" id="membre_id" class="form-control rounded-0" required>
+                                    <option selected hidden></option>
+                                {% for membre in listes_membre %}
+                                    <option value="{{ membre.pk }}" data-nom="{{ membre.prenom_membre }}" >{{ membre.nom_membre }}</option>
+                                {% endfor %}
+                                </select>
+                            </div>
+                            <div class="row mt-3">
+                                <label for="nom_membre">Prénom Membre</label>
+                                <input type="text" id="nom_membre" name="nom_membre" class="form-control rounded-0" disabled>
+                            </div>
+                            <div class="row mt-3">
+                                <label for="montant_verser">Montant versé</label>
+                                <select name="montant_verser" id="montant_verser" class="form-control rounded-0" required>
+                                    <option selected hidden></option>
+                                    <option value="1000">1000</option>
+                                    <option value="2000">2000</option>
+                                    <option value="3000">3000</option>
+                                    <option value="4000">4000</option>
+                                    <option value="5000">5000</option>
+                                </select>
+                            </div>
+                            <div class="row mt-3">
+                                <button type="submit" class="btn btn-primary rounded-0">Enregistrer</button>
+                                <a href="{% url 'cotisation' %}" class="btn btn-danger rounded-0 mx-4">Annuler</a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript" src="{% static 'js/jquery.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+    <script type="text/javascript"  src="{% static 'js/sweetAlert2.js' %}"></script>
+    <script type="text/javascript" src="{% static 'modal.js' %}"></script>
+    <!-- select: id donne nom -->
+    <script>
+        $(document).ready(function(){
+            $("#alert").animate({
+               opacity: 1,
+            }, 2000, function() {
+               $("#alert").delay(10000).fadeOut();
+            });
+            
+            $('#membre_id').on('change', function() {
+                var selectedOption = $(this).find('option:selected');
+                var prenomMembre = selectedOption.data('nom');
+                $('#nom_membre').val(prenomMembre || '');
+            });
+
+            $('#versementForm').on('submit', function(e) {
+                e.preventDefault();
+                $.ajax({
+                    type: 'POST',
+                    url: $(this).attr('action'),
+                    data: $(this).serialize(),
+                    dataType: 'json',
+                    success: function(response) {
+                        if(response.success) {
+                            Swal.fire({
+                                icon: 'info',
+                                title: 'Tatitra !',
+                                text: response.message,
+                                showConfirmButton: true,
+                            }).then(() => {
+                                window.location.href = response.redirect;
+                            });
+                        } else {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Erreur',
+                                text: response.message
+                            }).then(() => {
+                                window.location.href = response.redirect;
+                            });;
+                        }
+                    },
+                    error: function() {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Erreur',
+                            text: 'Une erreur s\'est produite. Veuillez réessayer.'
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

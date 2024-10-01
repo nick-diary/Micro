@@ -1,0 +1,104 @@
+{% load static %}
+{% load custom_filters %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Détails de la Réunion</title>
+    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'fontawesome/css/all.css' %}">
+    <link rel="stylesheet" href="{% static 'addons/datatables.min.css' %}">
+    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.min.css"> -->
+
+</head>
+<body>
+    <div id="wrapper">
+        {% include 'navbar0.html' %}
+        <a href="{% url 'reunion' %}" class="btn btn-link position-relative" style="top: 10px; left: 50px; z-index: 1031;">
+            <i class="fas fa-arrow-left fa-2x"></i>
+        </a>
+        <div id="content-wrapper">
+            <div class="card shadow-sm rounded-0 mt-3 mx-5">
+                <div class="card-header">
+                    <h3>Détails de la Réunion du {{ current_date|date:"d/m/Y" }}</h3>
+                </div>
+                <div class="card-body">
+                    <form method="post" id="reunion-form" action="{% url 'reunion_create' %}">
+                        {% csrf_token %}
+                        <table class="table table-responsive-lg table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Nom</th>
+                                    <th>Prénom</th>
+                                    <th>Présent</th>
+                                    <!-- <th>Pénalité</th> -->
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for membre in membres %}
+                                <tr>
+                                    <td>{{ membre.nom_membre }}</td>
+                                    <td>{{ membre.prenom_membre }}</td>
+                                    <td>
+                                        <input type="checkbox" name="assister_{{ membre.id }}" value="1">
+                                    </td>
+                                    <!-- <td>
+                                        <input type="checkbox" name="penalite_{{ membre.id }}" value="1">
+                                    </td> -->
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                        <button type="submit" class="btn btn-primary">Enregistrer</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript" src="{% static 'js/jquery.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'datatables/datatables.js' %}"></script>
+    <script type="text/javascript" src="{% static 'modal.js' %}"></script>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.all.min.js"></script> -->
+    <script type="text/javascript"  src="{% static 'js/sweetAlert2.js' %}"></script>
+
+    <script>
+        $(document).ready(function(){
+            $(".table").DataTable();
+
+            $("#reunion-form").on("submit", function(e){
+                e.preventDefault();
+                $.ajax({
+                    url: $(this).attr("action"),
+                    type: "POST",
+                    data: $(this).serialize(),
+                    dataType: "json",
+                    success: function(response){
+                        if(response.success){
+                            Swal.fire({
+                                title: "Succès!",
+                                text: "La réunion a été crée avec succès.",
+                                icon: "success",
+                                confirmButtonText: "OK"
+                            }).then((result) => {
+                                if (result.isConfirmed) {
+                                    window.location.href = response.redirect_url;
+                                }
+                            });
+                        }
+                    },
+                    error: function(){
+                        Swal.fire({
+                            title: "Erreur!",
+                            text: "Une erreur s'est produite lors de la creation de la réunion.",
+                            icon: "error",
+                            confirmButtonText: "OK"
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

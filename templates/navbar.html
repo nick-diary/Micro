@@ -1,0 +1,512 @@
+<<<<<<< HEAD
+<nav id="side_nav" class="navbar navbar-dark align-items-start sidebar sidebar-dark accordion bg-gradient-primary p-0">
+    <header>
+        <span class="toogle_btn"><i class="fa fa-stream" ></i></span>
+    </header>
+=======
+<!-- <nav class="navbar navbar-dark align-items-start sidebar sidebar-dark accordion bg-gradient-primary p-0">
+>>>>>>> a92ad57495ebf344910ed04b474f40c45815c5a2
+    <div class="container-fluid d-flex flex-column p-0">
+        <a class="navbar-brand d-flex justify-content-center align-items-center sidebar-brand active m-0" href="#">
+{#            <div class="sidebar-brand-icon">#}
+{#                <i class="fas fa-bars"></i>#}
+{#            </div>#}
+            <div>
+                <i class="fas fa-bank"></i><i class="fas fa-bank"></i>
+                <span>Microfinance</span>
+            </div>
+        </a>
+        <hr class="sidebar-divider my-0"><hr class="sidebar-divider my-0">
+        <ul class="navbar-nav text-light" id="accordionSidebar">
+            <li class="nav-item">
+                <a class="nav-link {{ active_caisse }}" href="{% url 'caisse' %}">
+                    <i class="fa fa-sack-dollar"></i>
+                    <span>Caisse</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link {{ active_cotisation }}" href="{% url 'cotisation' %}">
+                    <i class="fas fa-cash-register"></i>
+                    <span>Cotisation</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link {{ active_membre }}" href="{% url 'membre' %}">
+                    <i class="fa fa-users"></i>
+                    <span>Membre</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link {{ active_reunion }}" href="{% url 'reunion' %}">
+                    <i class="fas fa-handshake"></i>
+                    <span>Réunion</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link {{ active_pret }}" href="{% url 'pret' %}">
+<<<<<<< HEAD
+                    <i class="fas fa-money-bill-transfer"></i>
+=======
+                    <i class="fas fa-wallet"></i>
+>>>>>>> a92ad57495ebf344910ed04b474f40c45815c5a2
+                    <span>Prêt</span>
+                </a>
+            </li>
+{#            <li class="nav-item">#}
+{#                <a class="nav-link {{ active_stock }}" href="{% url 'stock_produit' %}">#}
+{#                    <i class="fas fa-warehouse"></i>#}
+{#                    <span>Stock des Produits</span>#}
+{#                </a>#}
+{#            </li>#}
+{#            <li class="nav-item">#}
+{#                <a class="nav-link {{ active_compte }}" href="{% url 'admin:index' %}">#}
+{#                    <i class="fas fa-user-alt"></i>#}
+{#                    <span>Compte</span>#}
+{#                </a>#}
+{#            </li>#}
+{#            {% endif %}#}
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'deconnexion' %}">
+                    <i class="fas fa-power-off"></i>
+                    <span>Deconnexion</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+<<<<<<< HEAD
+</nav>
+<style type="text/css">
+    .sidebar{
+        position: fixed;
+        background: #0078D7;
+        min-width: 250px;
+        max-width: 250px;
+        z-index: 10;
+        padding: 10px 14px;
+        box-shadow: 3px 0px 5px rgba(82, 81, 81,0.7);
+        transition: all 0.3s;
+    }
+
+    .sidebar .closed {
+        width: 75px;
+    }
+
+    .toogle_btn {
+        position: fixed;
+        color: #0078D7;
+        margin-left: 260px;
+        z-index: 10;
+        cursor: pointer;
+    }
+
+    @media(max-width: 767px){
+        .sidebar{
+        margin-left: -250px;
+        position: fixed;
+        min-height: 100vh;
+
+        }
+        .toogle_btn{
+            visibility: visible;
+            transition: all 0.3s;
+        }
+    }
+</style>
+
+<script type="text/javascript">
+    var toogleBtn = document.querySelector(".toogle_btn"),
+          sideNav = document.querySelector(".sidebar");
+    toogleBtn.addEventListener("click", () => {
+        sideNav.classList.toggle("closed");
+    });
+</script>
+=======
+</nav> -->
+
+
+
+
+<!-- <div class="sidebar-wrapper"> -->
+    <!-- Floating burger button for mobile -->
+    <!-- <button id="sidebarToggle" class="btn btn-link d-md-none rounded-circle mr-3 position-fixed" style="top: 10px; left: 10px; z-index: 1031;">
+      <i class="fa fa-bars"></i>
+    </button> -->
+  
+    <!-- Sidebar -->
+    <!-- <nav class="navbar navbar-dark align-items-start sidebar sidebar-dark accordion bg-gradient-primary p-0" id="sidebar">
+      <div class="container-fluid d-flex flex-column p-0">
+        <a class="navbar-brand d-flex justify-content-center align-items-center sidebar-brand active m-0" href="#">
+          <div class="sidebar-brand-text mx-2">
+            <span>Mon App</span>
+          </div>
+        </a>
+        <hr class="sidebar-divider my-0">
+        <ul class="navbar-nav text-light" id="accordionSidebar">
+          <li class="nav-item">
+            <a class="nav-link {{ active_caisse }}" href="{% url 'caisse' %}">
+              <i class="fa fa-shopping-bag"></i>
+              <span>Caisse</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link {{ active_cotisation }}" href="{% url 'cotisation' %}">
+              <i class="fas fa-list"></i>
+              <span>Cotisation</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link {{ active_membre }}" href="{% url 'membre' %}">
+              <i class="fa fa-box"></i>
+              <span>Membre</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link {{ active_reunion }}" href="{% url 'reunion' %}">
+              <i class="fas fa-computer"></i>
+              <span>Réunion</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link {{ active_pret }}" href="{% url 'pret' %}">
+              <i class="fas fa-wallet"></i>
+              <span>Prêt</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'deconnexion' %}">
+              <i class="fas fa-power-off"></i>
+              <span>Deconnexion</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  </div>
+  
+  <style>
+  @media (max-width: 767.98px) {
+    #sidebar {
+      margin-left: -250px;
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 100vh;
+      z-index: 999;
+      transition: all 0.3s;
+      overflow-y: auto;
+    }
+    
+    #sidebar.active {
+      margin-left: 0;
+    }
+    
+    .content-wrapper {
+      width: 100%;
+    }
+  }
+  </style>
+  
+  <script>
+  document.addEventListener('DOMContentLoaded', function() {
+    var sidebarToggle = document.getElementById('sidebarToggle');
+    var sidebar = document.getElementById('sidebar');
+    
+    sidebarToggle.addEventListener('click', function() {
+      sidebar.classList.toggle('active');
+    });
+    
+    // Close sidebar when clicking outside
+    document.addEventListener('click', function(event) {
+      var isClickInside = sidebar.contains(event.target) || sidebarToggle.contains(event.target);
+      if (!isClickInside && sidebar.classList.contains('active')) {
+        sidebar.classList.remove('active');
+      }
+    });
+  });
+  </script> -->
+
+  <div class="sidebar-wrapper">
+    <!-- Always visible burger button -->
+    <button id="sidebarToggle" class="btn btn-link rounded-circle mr-3 position-fixed" style="top: 10px; left: 10px; z-index: 1031;">
+        <i class="fa fa-bars"></i>
+    </button>
+    <!-- Sidebar -->
+    <nav class="navbar navbar-dark align-items-start sidebar sidebar-dark accordion bg-gradient-primary p-0" id="sidebar">
+        <div class="container-fluid d-flex flex-column p-0">
+            <a class="navbar-brand d-flex justify-content-center align-items-center sidebar-brand active m-0" href="#">
+                <div class="sidebar-brand-text mx-2">
+                    <span>Mon App</span>
+                </div>
+            </a>
+            <hr class="sidebar-divider my-0">
+            <ul class="navbar-nav text-light" id="accordionSidebar">
+                <li class="nav-item">
+                    <a class="nav-link {{ active_caisse }}" href="{% url 'caisse' %}">
+                        <i class="fa fa-shopping-bag"></i>
+                        <span>Caisse</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {{ active_cotisation }}" href="{% url 'cotisation' %}">
+                        <i class="fas fa-list"></i>
+                        <span>Cotisation</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {{ active_membre }}" href="{% url 'membre' %}">
+                        <i class="fa fa-box"></i>
+                        <span>Membre</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {{ active_reunion }}" href="{% url 'reunion' %}">
+                        <i class="fas fa-computer"></i>
+                        <span>Réunion</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {{ active_pret }}" href="{% url 'pret' %}">
+                        <i class="fas fa-wallet"></i>
+                        <span>Prêt</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#" id="deconnexionLink">
+                        <i class="fas fa-power-off"></i>
+                        <span>Deconnexion</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</div>
+
+<style>
+    #sidebar {
+        margin-left: -250px;
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 100vh;
+        z-index: 2000;
+        transition: all 0.3s;
+        overflow-y: auto;
+        width: 250px;
+    }
+    #sidebar.active {
+        margin-left: 0;
+    }
+    .content-wrapper {
+        width: 100%;
+        transition: all 0.3s;
+    }
+    .content-wrapper.sidebar-open {
+        margin-left: 250px;
+    }
+    @media (min-width: 768px) {
+      
+        .content-wrapper.sidebar-open {
+            width: calc(100% - 250px);
+        }
+    }
+    /* @media (min-width: 768px) {
+    #sidebar {
+        margin-left: 0;
+    }
+    .content-wrapper {
+        margin-left: 250px;
+        width: calc(100% - 250px);
+    }
+} */
+    
+</style>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    var sidebarToggle = document.getElementById('sidebarToggle');
+    var sidebar = document.getElementById('sidebar');
+    var contentWrapper = document.querySelector('.content-wrapper');
+    var deconnexionLink = document.getElementById('deconnexionLink');
+
+    sidebarToggle.addEventListener('click', function() {
+        sidebar.classList.toggle('active');
+        contentWrapper.classList.toggle('sidebar-open');
+    });
+
+    // Close sidebar when clicking outside
+    document.addEventListener('click', function(event) {
+        var isClickInside = sidebar.contains(event.target) || sidebarToggle.contains(event.target);
+        if (!isClickInside && sidebar.classList.contains('active')) {
+            sidebar.classList.remove('active');
+            contentWrapper.classList.remove('sidebar-open');
+        }
+    });
+
+    // Add SweetAlert confirmation for deconnexion
+    deconnexionLink.addEventListener('click', function(e) {
+        e.preventDefault();
+        Swal.fire({
+            title: 'Êtes-vous sûr de vouloir vous déconnecter ?',
+            text: "Vous devrez vous reconnecter pour accéder à l'application.",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            cancelButtonText: 'Annuler',
+            confirmButtonText: 'Oui, me déconnecter',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = "{% url 'deconnexion' %}";
+            }
+        });
+    });
+});
+</script>
+
+
+  <!-- <div class="sidebar-wrapper"> -->
+    <!-- Always visible burger button -->
+    <!-- <button id="sidebarToggle" class="btn btn-link rounded-circle mr-3 position-fixed" style="top: 10px; left: 10px; z-index: 1031;">
+      <i class="fa fa-bars"></i>
+    </button> -->
+  
+    <!-- Sidebar -->
+     <!--
+    <nav class="navbar navbar-dark align-items-start sidebar sidebar-dark accordion bg-gradient-primary p-0" id="sidebar">
+      <div class="container-fluid d-flex flex-column p-0">
+        <a class="navbar-brand d-flex justify-content-center align-items-center sidebar-brand active m-0" href="#">
+          <div class="sidebar-brand-text mx-2">
+            <span>Mon App</span>
+          </div>
+        </a>
+        <hr class="sidebar-divider my-0">
+        <ul class="navbar-nav text-light" id="accordionSidebar">
+          <li class="nav-item">
+            <a class="nav-link {{ active_caisse }}" href="{% url 'caisse' %}">
+              <i class="fa fa-shopping-bag"></i>
+              <span>Caisse</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link {{ active_cotisation }}" href="{% url 'cotisation' %}">
+              <i class="fas fa-list"></i>
+              <span>Cotisation</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link {{ active_membre }}" href="{% url 'membre' %}">
+              <i class="fa fa-box"></i>
+              <span>Membre</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link {{ active_reunion }}" href="{% url 'reunion' %}">
+              <i class="fas fa-computer"></i>
+              <span>Réunion</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link {{ active_pret }}" href="{% url 'pret' %}">
+              <i class="fas fa-wallet"></i>
+              <span>Prêt</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'deconnexion' %}">
+              <i class="fas fa-power-off"></i>
+              <span>Deconnexion</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  </div>
+  
+  <style>
+  #sidebar {
+    position: fixed;
+    top: 0;
+    left: -250px;
+    height: 100vh;
+    z-index: 999;
+    transition: all 0.3s;
+    overflow-y: auto;
+    width: 250px;
+  }
+  
+  #sidebar.active {
+    left: 0;
+  }
+  
+  .content-wrapper {
+    width: 100%;
+    transition: all 0.3s;
+  }
+  
+  @media (max-width: 767px) {
+    #sidebar {
+      width: 100%;
+      left: -100%;
+    }
+    
+    #sidebar.active {
+      left: 0;
+    }
+  }
+  
+  @media (min-width: 768px) {
+    #sidebar {
+      left: 0;
+    }
+    
+    .content-wrapper {
+      margin-left: 250px;
+      width: calc(100% - 250px);
+    }
+    
+    .content-wrapper.sidebar-closed {
+      margin-left: 0;
+      width: 100%;
+    }
+  }
+  </style>
+  
+  <script>
+  document.addEventListener('DOMContentLoaded', function() {
+    var sidebarToggle = document.getElementById('sidebarToggle');
+    var sidebar = document.getElementById('sidebar');
+    var contentWrapper = document.querySelector('.content-wrapper');
+    
+    function toggleSidebar() {
+      sidebar.classList.toggle('active');
+      if (window.innerWidth >= 768) {
+        contentWrapper.classList.toggle('sidebar-closed');
+      }
+    }
+    
+    sidebarToggle.addEventListener('click', toggleSidebar);
+    
+    // Close sidebar when clicking outside on mobile
+    document.addEventListener('click', function(event) {
+      if (window.innerWidth < 768) {
+        var isClickInside = sidebar.contains(event.target) || sidebarToggle.contains(event.target);
+        if (!isClickInside && sidebar.classList.contains('active')) {
+          toggleSidebar();
+        }
+      }
+    });
+    
+    // Handle window resize
+    window.addEventListener('resize', function() {
+      if (window.innerWidth >= 768) {
+        sidebar.classList.add('active');
+        contentWrapper.classList.remove('sidebar-closed');
+      } else {
+        sidebar.classList.remove('active');
+        contentWrapper.classList.remove('sidebar-closed');
+      }
+    });
+  });
+  </script> -->
+>>>>>>> a92ad57495ebf344910ed04b474f40c45815c5a2

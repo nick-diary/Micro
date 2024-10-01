@@ -1,0 +1,101 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Enregistrement</title>
+    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'fontawesome/css/all.css' %}">
+
+</head>
+<body id="wrapper"></body>
+    {% include 'navbar0.html' %}
+    <a href="{% url 'membre' %}" class="btn btn-link position-fixed" style="top: 10px; left: 50px; z-index: 1031;">
+        <i class="fas fa-arrow-left fa-2x"></i>
+    </a>
+    <div id="content-wrapper">
+                <div class="d-flex justify-content-center align-content-center bg-light">
+                    <div class="card shadow rounded-0 border-0 px-5 py-3">
+                        <div class="card-header text-center border-0">
+                            <h1>Modification du membre</h1>
+                        </div>
+                        <div class="card-body">
+                            <div class="px-5">
+                                {% include 'message.html' %}
+                                <form id="membre-form" method="post">
+                                    {% csrf_token %}
+                                    <div class="row">
+                                        <label for="nom_membre">Nom</label>
+                                        <input type="text" id="nom_membre" name="nom_membre" class="form-control rounded-0" value="{{ membre.nom_membre }}" required>
+                                    </div>
+                                    <div class="row mt-3">
+                                        <label for="prenom_membre">Prénom</label>
+                                        <input type="text" id="prenom_membre" name="prenom_membre" class="form-control rounded-0" value="{{ membre.prenom_membre }}" required>
+                                    </div>
+                                    <div class="row mt-3">
+                                        <label for="activite_membre">Activité</label>
+                                        <input type="text" id="activite_membre" name="activite_membre" class="form-control rounded-0" value="{{ membre.activite_membre }}" required>
+                                    </div>
+                                    <div class="row mt-3">
+                                        <button class="btn btn-primary rounded-0" type="submit">Modifier</button>
+                                        <a href="{% url 'membre' %}" class="btn btn-danger rounded-0 mx-4">Annuler</a>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    <script type="text/javascript" src="{% static 'js/jquery.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'modal.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/sweetAlert2.js' %}"></script>
+
+    <script>
+        $(document).ready(function(){
+           $("#alert").animate({
+            opacity: 1,
+            }, 2000, function() {
+                $("#alert").delay(10000).fadeOut();
+            });
+        });
+    </script>
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $("#membre-form").on("submit", function(e){
+                e.preventDefault(); // Prevent default form submission
+    
+                $.ajax({
+                    url: window.location.href,  // Send the request to the current URL (which is the modification view)
+                    type: 'POST',
+                    data: $(this).serialize(),  // Serialize form data
+                    success: function(response) {
+                        // On success, show SweetAlert
+                        Swal.fire({
+                            title: 'Succès!',
+                            text: 'Modification effectuée avec succès!',
+                            icon: 'success',
+                            confirmButtonText: 'OK'
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                // Redirect after the alert is closed
+                                window.location.href = "{% url 'membre' %}";
+                            }
+                        });
+                    },
+                    error: function(response) {
+                        // Handle errors here if necessary
+                        Swal.fire({
+                            title: 'Erreur!',
+                            text: 'Une erreur s\'est produite.',
+                            icon: 'error',
+                            confirmButtonText: 'OK'
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+    
+</div>
+</html>

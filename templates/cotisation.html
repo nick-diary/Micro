@@ -1,0 +1,77 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>cotisation</title>
+    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'fontawesome/css/all.css' %}">
+    <link rel="stylesheet" href="{% static 'addons/datatables.min.css' %}">
+</head>
+<body id="wrapper">
+    {% include 'navbar0.html' %}
+    <div id="content-wrapper">
+        <div class="card shadow-sm rounded-0 mt-3 mx-5">
+            <div class="card-header">
+                <h3>Cotisation</h3>
+            </div>
+            <div class="card-body">
+                {% include 'message.html' %}
+                <form action="" method="get">
+                    {% csrf_token %}
+                    <div class="d-flex justify-content-between">
+                        <a href="{% url 'caisse_save' %}" class="btn btn-primary rounded-0 mb-2" title="Pour enregistrer un produit dans le stock">
+                            <i class="fa fa-plus"></i>
+                             Ajouter
+                        </a>
+                    </div>
+                    <table class="table table-responsive-lg table-bordered table-striped">
+                        <thead class=" bg-primary text-light">
+                            <tr>
+                                <th>ID membre</th>
+                                <th>Nom Membre</th>
+                                <th>Montant verser</th>
+                                <th>Date de versement</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        {% for vers in verser %}
+                            <tr>
+                                <td>{{ vers.membre.pk }}</td>
+                                <td>{{ vers.membre.nom_membre }}</td>
+                                <td>{{ vers.montant_verser }} Ar</td>
+                                <td>{{ vers.date_versement }}</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td colspan="2" class="text-right"><strong>Total :</strong></td>
+                                <td colspan="2">
+                                    <strong>{{ total_montant }} Ar</strong>
+                                </td>
+                            </tr>
+                        </tfoot>
+                        
+                        
+                    </table>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+    <script type="text/javascript" src="{% static 'js/jquery.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'datatables/datatables.js' %}"></script>
+    <script type="text/javascript" src="{% static 'modal.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/sweetAlert2.js' %}"></script>
+    <script>
+        $(document).ready(function(){
+           $("#alert").animate({
+            opacity: 1,
+            }, 2000, function() {
+                $("#alert").delay(10000).fadeOut();
+            });
+        });
+    </script>
+</html>

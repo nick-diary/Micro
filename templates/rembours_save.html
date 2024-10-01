@@ -1,0 +1,81 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Nouveau remboursement</title>
+    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'fontawesome/css/all.css' %}">
+
+</head>
+<body id="wrapper"></body>
+    {% include 'navbar0.html' %}
+    <a href="{% url 'rembourser' pk=current_pk %}" class="btn btn-link position-relative" style="top: 10px; left: 50px; z-index: 1031;">
+        <i class="fas fa-arrow-left fa-2x"></i>
+    </a>
+    <div id="content-wrapper">
+        <div class="d-flex justify-content-center align-content-center bg-light">
+            <div class="card shadow rounded-0 border-0 px-5 py-3">
+                <div class="card-header border-0 text-center">
+                    <h1>Nouveau remboursement de {{ nom_membre }}</h1>
+                </div>
+                <div class="card-body">
+                    <div class="px-5">
+                        {% include 'message.html' %}
+                        <form method="post">
+                            {% csrf_token %}
+                            <div class="row mt-3">
+                                <input type="hidden" id="id_pret" name="id_pret" class="form-control rounded-0" value="{{current_pk}}" required>
+                            </div>
+                            <div class="row mt-3">
+                                <label for="montant_rembours">Montant à rembourser (max = {{ montant_max }})</label>
+                                <input type="number" id="montant_rembours" name="montant_rembours" class="form-control rounded-0" value="{{ montant_max }}" min="0" max="{{ montant_max }}" required>
+                            </div>
+                            <div class="row mt-3">
+                                <div class="col-12 col-md-auto mb-2">
+                                    <button type="button" id="tout_rembourser" class="btn btn-secondary rounded-0 w-100">Tout rembourser</button>
+                                </div>
+                                <div class="col-12 col-md-auto mb-2">
+                                    <button class="btn btn-primary rounded-0 w-100">Enregistrer</button>
+                                </div>
+                                <div class="col-12 col-md-auto mb-2">
+                                    <a href="{% url 'rembourser' pk=current_pk %}" class="btn btn-danger rounded-0 w-100 mx-md-2">Annuler</a>
+                                </div>
+                            </div>
+                            
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript" src="{% static 'js/jquery.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'modal.js' %}"></script>
+    <script type="text/javascript"  src="{% static 'js/sweetAlert2.js' %}"></script>
+
+    <script>
+    $(document).ready(function(){
+        $("#alert").animate({
+            opacity: 1,
+        }, 2000, function() {
+            $("#alert").delay(10000).fadeOut();
+        });
+
+        $('#montant_rembours').blur(function() {
+            var montant_rembours = $(this).val();
+            if (montant_rembours % 100 == 0) {
+                $(this).val(montant_rembours)
+            } else {
+                $(this).val('');
+            }
+        });
+
+        $('#tout_rembourser').on('click', function() {
+            $('#montant_rembours').val('{{ montant_max }}');
+        });
+        
+    });
+    </script>
+</div>
+</html>

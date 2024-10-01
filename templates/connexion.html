@@ -1,0 +1,113 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Authentification</title>
+    <link rel="stylesheet" href="{% static 'fontawesome/css/all.min.css' %}">
+    <link rel="stylesheet" href="{% static 'bootstrap-5/css/bootstrap.min.css' %}">
+    <style>
+        body {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            background-color: #f8f9fa;
+        }
+        .card {
+            max-width: 400px;
+            width: 90%;
+            margin: auto;
+        }
+        .input-group-text {
+            width: 40px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8 col-lg-6">
+                <div class="card shadow-lg border-0">
+                    <div class="card-body p-5">
+                        <h4 class="text-center mb-5">Authentification</h4>
+                        <form id="loginForm" method="post">
+                            {% csrf_token %}
+                            {% include 'message.html' %}
+                            <div class="mb-4">
+                                <label for="UsernameCompte" class="form-label">Nom d'utilisateur *</label>
+                                <div class="input-group">
+                                    <span class="input-group-text bg-warning border-warning">
+                                        <i class="fa fa-user"></i>
+                                    </span>
+                                    <input class="form-control" type="text" name="UsernameCompte" id="UsernameCompte" placeholder="Entrer Nom d'utilisateur" autocomplete autofocus required>
+                                </div>
+                            </div>
+                            <div class="mb-4">
+                                <label for="MotPasseCompte" class="form-label">Mot de passe *</label>
+                                <div class="input-group">
+                                    <span class="input-group-text bg-warning border-warning">
+                                        <i class="fa fa-lock"></i>
+                                    </span>
+                                    <input class="form-control" type="password" name="MotPasseCompte" id="MotPasseCompte" placeholder="Entrer Mot de Passe" minlength="8" required>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-success w-100 mt-4">
+                                <i class="fa fa-sign-in-alt me-2"></i>Connexion
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="{% static 'bootstrap-5/js/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'js/jquery.min.js' %}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        $(document).ready(function(){
+            $("#alert").animate({
+                opacity: 1,
+            }, 2000, function() {
+                $("#alert").delay(8000).fadeOut();
+            });
+
+            $("#loginForm").on('submit', function(e){
+                e.preventDefault();
+                $.ajax({
+                    type: 'POST',
+                    url: $(this).attr('action'),
+                    data: $(this).serialize(),
+                    dataType: 'json',
+                    success: function(response) {
+                        if(response.success) {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Succès !',
+                                text: response.message,
+                                showConfirmButton: false,
+                                timer: 1500
+                            }).then(() => {
+                                window.location.href = response.redirect;
+                            });
+                        } else {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Erreur',
+                                text: response.message
+                            });
+                        }
+                    },
+                    error: function() {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Erreur',
+                            text: 'Une erreur s\'est produite. Veuillez réessayer.'
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

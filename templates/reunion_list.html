@@ -1,0 +1,94 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Liste des Réunions</title>
+    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'fontawesome/css/all.css' %}">
+    <link rel="stylesheet" href="{% static 'addons/datatables.min.css' %}">
+</head>
+<body>
+    <div id="wrapper">
+        {% include 'navbar0.html' %}
+        <div id="content-wrapper">
+            <div class="card shadow-sm rounded-0 mt-3 mx-5">
+                <div class="card-header">
+                    <h3>Liste des Réunions</h3>
+                </div>
+                <div class="card-body">
+                    {% if weekDay == 5 %}
+                    {% if add_reunion %}
+                        <a href="{% url 'reunion_create' %}" class="btn btn-primary rounded-0 mb-2">
+                            <i class="fa fa-plus"></i> Ajouter une réunion
+                        </a>
+                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                            <strong>Asabotsy androany!</strong> ka afaka mampiditra réunion.
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                    {% else %}
+                    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                        Efa vita ny réunion androany Asabotsy {{current_date}}
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    {% endif %}
+                    {% else %}
+                    <div class="alert alert-warning alert-dismissible fade show" role="alert" style="text-align: center; font-weight: bold;">
+                        Isaky ny <strong>Asabotsy</strong> vao afaka mampiditra réunion!
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    {% endif %}
+                    <table class="table table-responsive-lg table-bordered">
+                        <thead class=" bg-primary text-light">
+                            <tr>
+                                <th>Date de Réunion</th>
+                                <th>Présence</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for reunion in reunions %}
+                            <tr>
+                                <td>{{ reunion.date_reunion|date:"d-m-Y" }}</td>
+                                <td>{{ reunion.get_attendance_count }} / {{ reunion.get_total_membres }}</td>
+                                <td>
+                                    <a href="{% url 'reunion_detail' reunion.pk %}" class="btn btn-sm btn-info">
+                                        <i class="fa fa-eye"></i> Voir
+                                    </a>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                        <!-- <tfoot>
+                            <tr>
+                                <td colspan="2" class="text-right"><strong>Total :</strong></td>
+                                <td colspan="1">
+                                    <strong>{{ total_penalite }} Ar</strong>
+                                </td>
+                            </tr>
+                        </tfoot> -->
+                    </table>
+                    <p>Pénalité total : {{ total_penalite }} Ar</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript" src="{% static 'js/jquery.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'datatables/datatables.js' %}"></script>
+    <script type="text/javascript" src="{% static 'modal.js' %}"></script>
+    <script>
+        $(document).ready(function(){
+            $(".table").DataTable();
+        });
+    </script>
+</body>
+</html>

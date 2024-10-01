@@ -1,0 +1,85 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>prêt</title>
+    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'fontawesome/css/all.css' %}">
+    <link rel="stylesheet" href="{% static 'addons/datatables.min.css' %}">
+</head>
+<body id="wrapper">
+    {% include 'navbar0.html' %}
+    <div id="content-wrapper">
+        <div class="card shadow-sm rounded-0 mt-3 mx-5">
+            <div class="card-header">
+                <h3>Prêts</h3>
+            </div>
+            <div class="card-body">
+                {% include 'message.html' %}
+                <form action="" method="get">
+                    {% csrf_token %}
+                    {% if montant_caisse != 0 %}
+                    <div class="d-flex justify-content-between">
+                        <a href="{% url 'pret_save' %}" class="btn btn-primary rounded-0 mb-2" title="Pour enregistrer un produit dans le stock">
+                            <i class="fa fa-plus"></i>
+                             Ajouter
+                        </a>
+                    </div>
+                    {% endif %}
+                    <table class="table table-responsive-lg table-bordered table-striped">
+                        <thead class=" bg-primary">
+                            <tr class="text-light">
+                                <th>ID membre</th>
+                                <th>Nom Membre</th>
+                                <th>Montant prété</th>
+                                <th>Montant obtenu</th>
+                                <th>Montant à rembourser</th>
+                                <th>Date Prêt</th>
+                                <th>Etat Prêt</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        {% for pr in pret %}
+                            <tr>
+                                <td>{{ pr.membre.pk }}</td>
+                                <td>{{ pr.membre.nom_membre }}</td>
+                                <td>{{ pr.montant_pret|floatformat:0 }}</td>
+                                <td>{{ pr.montant_paye|floatformat:0 }}</td>
+                                <td>{{ pr.montant_rembouresser|floatformat:0 }}</td>
+                                <td>{{ pr.date_pret }}</td>
+                            {% if pr.etat_pret == True %}
+                                <td style="color: #20e870; font-weight: bold;">Payé</td>
+                            {% else %}
+                                <td style="color: #e90628; font-weight: bold;">Non payé</td>
+                            {% endif %}
+                                <td>
+                                    <a href="{%url 'rembourser' pk=pr.pk %}" class="btn btn-primary btn-sm rounded-0 rembourser" title="rembourser">
+                                        <i class="fas fa-circle-dollar-to-slot"></i> rembourser
+                                    </a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+    <script type="text/javascript" src="{% static 'js/jquery.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'datatables/datatables.js' %}"></script>
+    <script type="text/javascript" src="{% static 'modal.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/sweetAlert2.js' %}"></script>
+    <script>
+        $(document).ready(function(){
+           $("#alert").animate({
+            opacity: 1,
+            }, 2000, function() {
+                $("#alert").delay(10000).fadeOut();
+            });
+        });
+    </script>
+</html>
